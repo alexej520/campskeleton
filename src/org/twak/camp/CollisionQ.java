@@ -13,7 +13,6 @@ import java.util.Set;
 import javax.vecmath.Point3d;
 import javax.vecmath.Tuple3d;
 
-import org.twak.camp.debug.DebugDevice;
 
 /**
  *
@@ -292,8 +291,6 @@ public class CollisionQ
             removes.add( toAdd );
             return;
         }
-
-        DebugDevice.dump("about to delete "+toAdd.toString(), skel);
 
         // update corners
         toAdd.prevC.nextC = toAdd.nextC;

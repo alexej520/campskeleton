@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 import javax.vecmath.Tuple3d;
 
-import org.twak.camp.debug.DebugDevice;
 import org.twak.utils.Pair;
 import org.twak.utils.collections.CloneConfirmIterator;
 import org.twak.utils.collections.ConsecutivePairs;
@@ -105,13 +104,11 @@ public class HeightCollision implements HeightEvent
             css.validateChains( skel );
             
             changed |= css.processChains( skel );
-//            DebugDevice.dump("chain "+String.format("%4d", ++i ), skel );
         }
 
         skel.qu.resumeRemoves();
 
         processHoriz( skel );
-//         DebugDevice.dump("hc, tmp "+height, skel);
 
         return changed;
     }

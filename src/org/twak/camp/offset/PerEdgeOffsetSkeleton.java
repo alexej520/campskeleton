@@ -13,7 +13,6 @@ import org.twak.camp.HeightEvent;
 import org.twak.camp.Machine;
 import org.twak.camp.Skeleton;
 import org.twak.camp.Output.Face;
-import org.twak.camp.debug.DebugDevice;
 import org.twak.camp.ui.DirectionHeightEvent;
 import org.twak.utils.Cache;
 import org.twak.utils.collections.LoopL;
@@ -142,13 +141,9 @@ public class PerEdgeOffsetSkeleton
 
         InstanceHeightEvent last = null;
 
-        DebugDevice.dump("p/e offset skeleton (in)", oldCorners);
-
         // add instancing events to capture result at given offset
         outputSkeleton.qu.add( last = new InstanceHeightEvent ( step ) );
         outputSkeleton.skeleton();
-
-        DebugDevice.dump("p/e offset skeleton (out)", outputSkeleton);
 
 //        System.out.println(">>>>p/e now done");
 

@@ -17,7 +17,6 @@ import javax.vecmath.Tuple3d;
 import javax.vecmath.Vector3d;
 
 import org.twak.camp.Output.Face;
-import org.twak.camp.debug.DebugDevice;
 import org.twak.utils.Cache;
 import org.twak.utils.collections.CloneConfirmIterator;
 import org.twak.utils.collections.DHash;
@@ -36,7 +35,7 @@ import org.twak.utils.geom.LinearForm3D;
  * Horizontal Edges?
  * Height Collision.processHoriz()?
  *
- * Call 
+ * Call
  *  <pre>Skeleton skel = new Skeleton( edges );
  *  skel.skeleton();</pre>
  *
@@ -53,8 +52,8 @@ public class Skeleton
     public Set<Edge> liveEdges = new LinkedHashSet<>();
     public CollisionQ qu;
     public double height = 0;
-    
-    
+
+
 
     // we store the triplets of faces we've already passed out to stop repeats (insensitive to face order)
     public Set<EdgeCollision> seen = new LinkedHashSet<>();
@@ -62,7 +61,7 @@ public class Skeleton
     // output data
 //    public LoopL<Corner> flatTop = new LoopL<>();
     public Output output = new Output( this );
-    
+
     // debug
     public List<CoSitedCollision> debugCollisionOrder = new ArrayList<>();
 
@@ -98,7 +97,7 @@ public class Skeleton
         setup(input);
 
         capAt(cap);
-    }	
+    }
 
     /**
      * @Deprecated
@@ -143,7 +142,7 @@ public class Skeleton
     {
         // reset all! (not needed...but maybe in future)
         height =0;
-        liveCorners.clear(); 
+        liveCorners.clear();
         liveEdges.clear();
 
         MultiMap<Edge, Corner> allEdges= new MultiMap<>();
@@ -204,17 +203,15 @@ public class Skeleton
 
         int i = 0;
 
-        DebugDevice.dump("main "+String.format("%4d", ++i ), this );
         while ( ( he = qu.poll() ) != null )
             try
             {
                 if ( he.process( this ) ) // business happens here
                 {
                     height = he.getHeight();
-                    DebugDevice.dump("main "+height+" "+String.format("%4d", ++i ), this );
                     validate();
                 }
-                
+
                 refindFaceEventsIfNeeded();
             }
             catch ( Throwable t )
@@ -226,8 +223,6 @@ public class Skeleton
                     t.getCause().printStackTrace();
                 }
             }
-
-        DebugDevice.dump("after main "+String.format("%4d", ++i ), this );
 
         // build output polygons from constructed graph
         output.calculate( this );
@@ -243,10 +238,10 @@ public class Skeleton
      *
      * All output edges have the same machines as their originators.
      */
-    
+
     public DHash<Corner,Corner> cornerMap; // contains lookup for results (new->old)
     public ManyManyMap<Corner,Corner> segmentMap; // contains lookup for results ( old -> new )
-    
+
     public LoopL<Corner> capCopy (double height)
     {
         segmentMap = new ManyManyMap<Corner, Corner>();
@@ -330,7 +325,7 @@ public class Skeleton
             }
             while (workingSet.contains( current ));
         }
-        
+
         return out;
     }
 
@@ -360,18 +355,18 @@ public class Skeleton
             this.edge = edge;
         }
     }
-    
-    
+
+
     public interface HeresTheArea {
     	public void heresTheArea(double area);
     }
 
     public void capAt (double cap) {
     	capAt (cap, null);
-    	
+
     }
     public void capAt (double cap, HeresTheArea hta) {
-    	
+
     	  qu.add(new HeightEvent() {
 
     		  public double getHeight() {
@@ -379,14 +374,14 @@ public class Skeleton
               }
 
               public boolean process(Skeleton skel) {
-            	  
+
                   SkeletonCapUpdate capUpdate = new SkeletonCapUpdate(skel);
 
-                  
+
                   LoopL<Corner> flatTop = capUpdate.getCap(cap);
-                  
+
                   capUpdate.update(new LoopL<>(), new SetCorrespondence<Corner, Corner>(), new DHash<Corner, Corner>());
-                  
+
                   LoopL<Point3d> togo =
                           flatTop.new Map<Point3d>()
                           {
@@ -397,20 +392,18 @@ public class Skeleton
                               }
                           }.run();
                           skel.output.addNonSkeletonOutputFace( togo, new Vector3d( 0, 0, 1 ) );
-                          
+
                           if (hta != null)
                         	  hta.heresTheArea( Loopz.area3( togo ) );
-                          
-                  DebugDevice.dump("post cap dump", skel);
 
                   skel.qu.clearFaceEvents();
                   skel.qu.clearOtherEvents();
-                  
+
                   return true;
               }
           });
     }
-    
+
     public void refindAllFaceEventsLater()
     {
         refindFaceEvents = true;

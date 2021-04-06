@@ -13,7 +13,6 @@ import org.twak.camp.Skeleton;
 import org.twak.camp.SkeletonCapUpdate;
 import org.twak.camp.Tag;
 import org.twak.camp.Output.Face;
-import org.twak.camp.debug.DebugDevice;
 import org.twak.utils.collections.DHash;
 import org.twak.utils.collections.LoopL;
 
@@ -60,7 +59,6 @@ public class DirectionHeightEvent implements HeightEvent
 
         // add in the output edges for the outgoing face:
         LoopL<Corner> cap = update.getCap(height);
-        DebugDevice.dump( "cap", cap );
 
         CornerClone cc = new CornerClone(cap);
 
@@ -98,8 +96,6 @@ public class DirectionHeightEvent implements HeightEvent
                 skel.output.setParent (c.nextL.start, old.nextL.start);
             }
         }
-
-        DebugDevice.dump( "post height "+height, skel);
 
         machine.findNextHeight( skel );
         return true;

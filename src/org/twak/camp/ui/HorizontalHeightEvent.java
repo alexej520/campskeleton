@@ -15,7 +15,6 @@ import org.twak.camp.Skeleton;
 import org.twak.camp.SkeletonCapUpdate;
 import org.twak.camp.Output.Face;
 import org.twak.camp.Output.SharedEdge;
-import org.twak.camp.debug.DebugDevice;
 import org.twak.camp.offset.FindNOCorner;
 import org.twak.camp.offset.Offset;
 import org.twak.camp.offset.OffsetSkeleton;
@@ -61,8 +60,6 @@ public class HorizontalHeightEvent extends DirectionHeightEvent
         // flush it's changes into the current skeleton
         final SkeletonCapUpdate update = new SkeletonCapUpdate( skel );
         LoopL<Corner> cap = update.getCap( height ); //, finalHeight );
-
-        DebugDevice.dump( "horiz initial cap", cap);
 
         double step = 100;
         OffsetSkeleton<Machine> offsetSkel = new OffsetSkeleton( cap, step );
@@ -166,8 +163,6 @@ public class HorizontalHeightEvent extends DirectionHeightEvent
         skel.refindAllFaceEventsLater();
 
         skel.validate();
-
-        DebugDevice.dump( "post-horizontal", skel);
 
         machine.findNextHeight( skel );
 

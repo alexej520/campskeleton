@@ -13,7 +13,6 @@ import java.util.Set;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
-import org.twak.camp.debug.DebugDevice;
 import org.twak.utils.collections.DHash;
 import org.twak.utils.collections.LoopL;
 import org.twak.utils.collections.SetCorrespondence;
@@ -318,7 +317,6 @@ public class SkeletonCapUpdate
 
         skel.refindAllFaceEventsLater();
 
-        DebugDevice.dump("post cap update", skel);
         skel.validate();
     }
 
