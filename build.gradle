@@ -1,0 +1,43 @@
+apply plugin: 'java'
+// apply plugin: 'application'
+
+group = 'org.twak.campskeleton'
+version = '0.0.1'
+
+description = """"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// project.mainClassName = "org.twak.camp.debug.CampSkeleton"
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+jar {
+    processResources.exclude('**/*.java', '**/*.form')
+}
+
+repositories {
+
+    maven { url "https://jitpack.io" }
+    maven { url "https://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    if (!hasProperty('buildProfile')) ext.buildProfile = 'release'
+
+    compile group: 'javax.vecmath', name: 'vecmath', version: '1.5.2'
+    compile group: 'gov.nist.math', name: 'jama', version: '1.0.3'
+    switch (ext.buildProfile) {
+        case 'release': compile group: 'com.github.twak', name: 'jutils', version: '0.0.1'
+            break
+        case 'dev': compile group: 'org.twak.utils', name: 'utils', version: '0.0.1-SNAPSHOT'
+            break
+    }
+}
