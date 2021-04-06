@@ -13,7 +13,6 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Tuple3d;
 import javax.vecmath.Vector3d;
 
-import org.twak.camp.Output.Face;
 import org.twak.utils.Cache;
 import org.twak.utils.IdentityLookup;
 import org.twak.utils.Triple;

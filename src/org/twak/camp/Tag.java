@@ -1,8 +1,6 @@
 package org.twak.camp;
 
-import java.awt.Color;
 import java.util.Comparator;
-import java.util.List;
 
 import org.twak.utils.ui.Rainbow;
 
@@ -13,8 +11,6 @@ import org.twak.utils.ui.Rainbow;
  */
 public class Tag
 {
-    static Rainbow rainbow;
-    public Color color;
     public String name;
     String colorName;
 
@@ -25,7 +21,6 @@ public class Tag
 
     public Tag (String name)
     {
-        color = Rainbow.next( Tag.class );
         colorName = Rainbow.lastAsString( Tag.class );
         this.name = name;
     }
