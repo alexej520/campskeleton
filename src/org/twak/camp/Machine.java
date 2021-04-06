@@ -1,7 +1,6 @@
 
 package org.twak.camp;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -25,7 +24,6 @@ import org.twak.camp.ui.DirectionHeightEvent;
  */
 public class Machine
 {
-    public Color color; // color used in the ui
     // a machine will only ever have one pending event in the skeleton.qu, others are stored here
     public List<HeightEvent> events = new ArrayList();
     String description = "unnamed machine";
@@ -34,13 +32,6 @@ public class Machine
     public transient int currentDirection = -1;
 
     protected Set<Edge> seenEdges = new LinkedHashSet();
-
-    // for pretty output
-    static Color[] rainbow = new Color[] {
-        Color.red,
-        Color.green,
-        Color.blue,
-        Color.magenta };
 
     static String[] rainbowStrings = new String[] {"red", "green", "blue", "magenta" };
     static int rainbowIndex = 0;
@@ -52,7 +43,6 @@ public class Machine
 
     public Machine( double initial )
     {
-        color = rainbow[ rainbowIndex % rainbowStrings.length ];
         description = rainbowStrings[ rainbowIndex % rainbowStrings.length ];
         rainbowIndex++;
         addHeightEvent( new DirectionHeightEvent( this, initial ) );
@@ -137,7 +127,7 @@ public class Machine
     }
 
     /**
-     * @param directions the directions to set
+     * @param dir the directions to set
      */
     public void addHeightEvent( HeightEvent dir )
     {
