@@ -2,11 +2,9 @@ package org.twak.camp;
 
 import java.util.Comparator;
 
-import org.twak.utils.ui.Rainbow;
-
 /**
  * "Tags" for output properties of faces
- * 
+ *
  * @author twak
  */
 public class Tag
@@ -21,7 +19,7 @@ public class Tag
 
     public Tag (String name)
     {
-        colorName = Rainbow.lastAsString( Tag.class );
+        colorName = "unnamed";
         this.name = name;
     }
 
